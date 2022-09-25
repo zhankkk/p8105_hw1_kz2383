@@ -11,9 +11,7 @@ problem 0.2
 
 problem 1 part 
 
-```{r}
-install.packages("palmerpenguins")
-```
+
 
 ```{r}
 data("penguins", package = "palmerpenguins")
