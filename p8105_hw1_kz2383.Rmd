@@ -1,0 +1,89 @@
+---
+title: "p8105_hw1_kz2383"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+problem 0.2
+
+problem 1 part 
+
+```{r}
+install.packages("palmerpenguins")
+```
+
+```{r}
+data("penguins", package = "palmerpenguins")
+
+
+```
+There are 8 variables in the dataset: species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, baby_mass_g, sex and year.
+
+species: It has character value,eg Adelie.
+island: It has character value,eg Torgersen.
+bill_length_mm: numeric value rounded to at most one decimal place. Missing value is observed.
+bill_depth_mm: numeric value rounded to at most one decimal place. Missing value is observed.
+flipper_length_mm: numeric value with three digits (integer). Missing value is also observed.
+baby_mass_g: numeric value with four digits (integer). Missing value is also observed.
+sex: character and binary value with choice of "male" and "female". Missing value is also observed.
+year: four digit integer. 
+
+There are 8 columns(variable) and 344 rows(object) in the dataset.
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+
+
+penguins %>%
+  janitor::clean_names()%>%
+  drop_na(flipper_length_mm)%>%
+  summarize(mean_flipper_length_mm = mean(flipper_length_mm)) 
+
+penguins%>%
+  ggplot(aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + 
+    geom_point() +
+    theme(legend.position = "bottom")
+
+ggsave("flipper_bill.png")
+```
+The mean flipper length in milometer is 200.9152. A scatter plot of flipper length Vs bill length is plotted grouped by three different species. 
+
+
+
+
+
+problem 2 part
+
+
+create the  dataframe
+```{r}
+df=
+  tibble(
+    norm=rnorm(n=10),
+    logical=norm>0,
+    charac_vec = c("aaaaaaaaaa"),
+    level=c(rep("TreatmentA",3),
+                           rep("TreatmentB", 3),
+                           rep("TreatmentC", 4))
+    
+  )
+```
+
+
+take mean for each variable in the dataframe
+
+
+```{r, message=FALSE}
+mean(pull(df,norm))
+mean(pull(df,logical))
+mean(pull(df,charac_vec))
+mean(pull(df,level))
+  
+  
+```
+Mean for numeric value can be calculated while that for character or factor vector can't be calculated, "na"is returned as a result. 
